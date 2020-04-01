@@ -1,0 +1,8 @@
+.idea/*
+.firebase/*
+functions/credentials.json
+functions/.env
+src/.env
+.vscode/*
+node_modules
+firestore-debug.log

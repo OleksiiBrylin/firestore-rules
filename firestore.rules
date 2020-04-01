@@ -1,0 +1,18 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /user/{userId} {
+    	allow read: if request.auth.uid == userId
+      allow write, update: if request.auth.uid == userId
+            // this line works as expected -  5 passing tests
+            // && request.writeFields.hasOnly(['name', 'surname', 'billEmail', 'creditLimit']) == true;
+
+            // PERMISSION_DENIED: Null value error. for 'create' @ L6; 
+            // resource.data returns NULL in ruleCoverage.html
+             && request.resource.data.diff(resource.data).changedKeys().hasOnly(['name', 'surname', 'billEmail', 'creditLimit']) == true;
+
+            // PERMISSION_DENIED: Null value error. for 'create' @ L6
+            // && request.resource.data.diff(resource.data).changedKeys().hasOnly(['name', 'surname', 'billEmail', 'creditLimit']) == true;
+    }
+  }
+}
