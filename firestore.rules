@@ -7,7 +7,7 @@ service cloud.firestore {
       // 'write' includes 'create', 'update', 'delete'.
       // Here's how you can do what you're looking for, but in truth this is a weird thing to do. the correct thing to do is to split 'write' into its components.
       // The ternary operator is available in the latest version of the emulator (maybe not the CLI yet tho).
-      allow write: if request.auth.uid == userId && request.resource.data.diff(resource != null ? resource.data : {}).changedKeys().hasOnly(['name', 'surname', 'billEmail', 'creditLimit']);
+      // allow write: if request.auth.uid == userId && request.resource.data.diff(resource != null ? resource.data : {}).changedKeys().hasOnly(['name', 'surname', 'billEmail', 'creditLimit']);
 
       // The more correct way of doing things.
       function authed() {
